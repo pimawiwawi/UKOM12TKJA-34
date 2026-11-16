@@ -24,13 +24,13 @@ Sebelum memulai instalasi, pastikan interface Ether3-SERVER pada MikroTik telah 
 
 | Perangkat | Interface | IP Address |
 |---|---|---|
-| MikroTik | Ether3-SERVER | 100.100.4.1/30 |
-| Ubuntu Server | enp0s3 | 100.100.4.2/30 |
+| MikroTik | Ether3-SERVER | 100.100.34.1/30 |
+| Ubuntu Server | enp0s3 | 100.100.34.2/30 |
 
 Keterangan:
-- Network: `100.100.4.0/30`
+- Network: `100.100.34.0/30`
 - Subnet Mask: `255.255.255.252`
-- Gateway: `100.100.4.1`
+- Gateway: `100.100.34.1`
 
 ## C. Langkah-Langkah Instalasi Ubuntu Server
 
@@ -93,18 +93,18 @@ Masukkan konfigurasi berikut:
 | Parameter | Nilai |
 |---|---|
 | IPv4 Method | Manual |
-| Subnet | 100.100.4.0/30 |
-| Address | 100.100.4.2 |
-| Gateway | 100.100.4.1 |
+| Subnet | 100.100.34.0/30 |
+| Address | 100.100.34.2 |
+| Gateway | 100.100.34.1 |
 | Name servers | Kosongkan |
 | Search domains | Kosongkan |
 
 **Penjelasan setiap parameter:**
 
 - **IPv4 Method:** Memilih metode konfigurasi IP secara manual agar alamat IP tidak berubah secara otomatis.
-- **Subnet:** Menentukan jaringan yang digunakan oleh server, yaitu `100.100.4.0/30`.
-- **Address:** Menentukan IP Address khusus untuk Ubuntu Server, yaitu `100.100.4.2`.
-- **Gateway:** Menentukan alamat IP router MikroTik yang menjadi penghubung jaringan server, yaitu `100.100.4.1`.
+- **Subnet:** Menentukan jaringan yang digunakan oleh server, yaitu `100.100.34.0/30`.
+- **Address:** Menentukan IP Address khusus untuk Ubuntu Server, yaitu `100.100.34.2`.
+- **Gateway:** Menentukan alamat IP router MikroTik yang menjadi penghubung jaringan server, yaitu `100.100.34.1`.
 - **Name Servers:** Dapat dikosongkan karena instalasi dilakukan tanpa koneksi internet dan belum memerlukan DNS eksternal.
 - **Search Domains:** Dapat dikosongkan karena belum ada domain pencarian tambahan yang diperlukan.
 
@@ -121,7 +121,7 @@ Pada bagian interface `enp0s3`, seharusnya sudah terlihat informasi:
 
 - Interface: `enp0s3`
 - Status konfigurasi: `static`
-- IP Address: `100.100.4.2/30`
+- IP Address: `100.100.34.2/30`
 
 Hal tersebut menunjukkan bahwa alamat IP berhasil diterapkan secara manual.
 
@@ -169,7 +169,7 @@ Setelah instalasi selesai, lakukan pemeriksaan untuk memastikan IP Address telah
 5. Pastikan terdapat alamat IP:
 
    ```text
-   100.100.4.2/30
+   100.100.34.2/30
    ```
 
 Apabila alamat tersebut muncul pada interface enp0s3, konfigurasi IP Address berhasil diterapkan.
@@ -185,10 +185,10 @@ ip route
 Pastikan terdapat informasi default gateway yang mengarah ke:
 
 ```text
-default via 100.100.4.1 dev enp0s3
+default via 100.100.34.1 dev enp0s3
 ```
 
-Selain itu, pastikan jaringan `100.100.4.0/30` terhubung langsung melalui interface `enp0s3`.
+Selain itu, pastikan jaringan `100.100.34.0/30` terhubung langsung melalui interface `enp0s3`.
 
 ### 3. Menguji Koneksi ke Router MikroTik
 
@@ -197,12 +197,12 @@ Pengujian dilakukan untuk memastikan Ubuntu Server dapat berkomunikasi dengan ro
 Masukkan perintah:
 
 ```bash
-ping 100.100.4.1
+ping 100.100.34.1
 ```
 
 Tekan Enter.
 
-Apabila muncul balasan berupa `bytes from 100.100.4.1`, berarti Ubuntu Server berhasil berkomunikasi dengan router MikroTik.
+Apabila muncul balasan berupa `bytes from 100.100.34.1`, berarti Ubuntu Server berhasil berkomunikasi dengan router MikroTik.
 
 Tekan `Ctrl + C` untuk menghentikan proses ping.
 
@@ -215,9 +215,9 @@ Setelah seluruh tahapan instalasi dan konfigurasi selesai, hasil yang diharapkan
 | 1 | Sistem Operasi | Ubuntu Server 24.04.3 LTS |
 | 2 | Network Interface | enp0s3 |
 | 3 | IPv4 Method | Manual |
-| 4 | IP Address | 100.100.4.2 |
+| 4 | IP Address | 100.100.34.2 |
 | 5 | Subnet Prefix | /30 |
-| 6 | Gateway | 100.100.4.1 |
+| 6 | Gateway | 100.100.34.1 |
 | 7 | Koneksi ke Router | Berhasil |
 | 8 | Koneksi Internet | Tidak diperlukan pada tahap instalasi |
 
@@ -225,6 +225,6 @@ Setelah seluruh tahapan instalasi dan konfigurasi selesai, hasil yang diharapkan
 
 Instalasi Ubuntu Server 24.04.3 dilakukan dengan menghubungkan komputer server ke router MikroTik melalui interface Ether3-SERVER. Karena jaringan server tidak menggunakan DHCP Server, konfigurasi IP Address dilakukan secara manual dengan metode Static.
 
-Ubuntu Server menggunakan IP Address `100.100.4.2/30`, sedangkan router MikroTik menggunakan IP Address `100.100.4.1/30` sebagai gateway. Meskipun instalasi dilakukan tanpa koneksi internet, server tetap terhubung secara lokal dengan router MikroTik.
+Ubuntu Server menggunakan IP Address `100.100.34.2/30`, sedangkan router MikroTik menggunakan IP Address `100.100.34.1/30` sebagai gateway. Meskipun instalasi dilakukan tanpa koneksi internet, server tetap terhubung secara lokal dengan router MikroTik.
 
 Pengujian menggunakan perintah `ip addr`, `ip route`, dan `ping` dilakukan untuk memastikan konfigurasi jaringan telah diterapkan dengan benar serta komunikasi antara Ubuntu Server dan router MikroTik dapat berjalan.
