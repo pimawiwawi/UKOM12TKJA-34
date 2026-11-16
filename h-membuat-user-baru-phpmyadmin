@@ -1,5 +1,5 @@
 -- 1. Membuat user baru
-CREATE USER 'prima34'@'localhost' IDENTIFIED BY 'password_kamu';
+CREATE USER 'prima34'@'localhost' IDENTIFIED BY 'UkomDB@2026';
 
 -- 2. Memberikan hak akses ke database
 GRANT ALL PRIVILEGES ON ukomdb.* TO 'prima34'@'localhost';
