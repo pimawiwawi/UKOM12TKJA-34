@@ -45,10 +45,10 @@ sudo mariadb
 
 ## 5. Membuat database dan user
 
-Di dalam konsol MariaDB, jalankan perintah berikut untuk membuat database `ukom4`:
+Di dalam konsol MariaDB, jalankan perintah berikut untuk membuat database `ukom34`:
 
 ```sql
-CREATE DATABASE ukom4
+CREATE DATABASE ukom34
 CHARACTER SET utf8mb4
 COLLATE utf8mb4_unicode_ci;
 ```
@@ -56,14 +56,14 @@ COLLATE utf8mb4_unicode_ci;
 Buat user database lokal:
 
 ```sql
-CREATE USER 'ukom4'@'localhost'
+CREATE USER 'ukom34'@'localhost'
 IDENTIFIED BY 'UkomDB@2026';
 ```
 
-Berikan hak akses kepada user tersebut untuk mengelola database `ukom4`:
+Berikan hak akses kepada user tersebut untuk mengelola database `ukom34`:
 
 ```sql
-GRANT ALL PRIVILEGES ON ukom4.* TO 'ukom4'@'localhost';
+GRANT ALL PRIVILEGES ON ukom4.* TO 'ukom34'@'localhost';
 
 FLUSH PRIVILEGES;
 ```
@@ -79,7 +79,7 @@ SHOW DATABASES;
 Pilih database yang baru dibuat:
 
 ```sql
-USE ukom4;
+USE ukom34;
 ```
 
 Kemudian buat tabel `informasi`:
@@ -107,7 +107,7 @@ Tambahkan data contoh ke tabel `informasi`:
 INSERT INTO informasi (nama, keterangan)
 VALUES
 ('UKOM TKJ', 'Web Server dan Database Server'),
-('Absen 4', 'Konfigurasi jaringan UKOM'),
+('Absen 34', 'Konfigurasi jaringan UKOM'),
 ('MikroTik', 'Gateway dan HotSpot'),
 ('Server', 'Ubuntu Server (ip ubuntu)');
 ```
@@ -129,7 +129,7 @@ EXIT;
 Di terminal Ubuntu, jalankan:
 
 ```bash
-mariadb -u ukom4 -p ukom4
+mariadb -u ukom34 -p ukom34
 ```
 
 Masukkan password yang ditetapkan saat membuat user. Pada contoh konfigurasi ini, password-nya adalah `UkomDB@2026`. Saat mengetik password, karakter biasanya tidak ditampilkan di terminal.
@@ -148,6 +148,6 @@ EXIT;
 
 ## Catatan penting
 
-- Pastikan nama database konsisten menggunakan `ukom4`. Pada catatan awal terdapat `USE ukom4;`; langkah tersebut perlu menggunakan `USE ukom4;` agar sesuai dengan database yang dibuat.
+- Pastikan nama database konsisten menggunakan `ukom34`. Pada catatan awal terdapat `USE ukom34;`; langkah tersebut perlu menggunakan `USE ukom34;` agar sesuai dengan database yang dibuat.
 - Ganti teks `Ubuntu Server (ip ubuntu)` dengan alamat IP Ubuntu Server yang benar jika ingin menyimpan IP server pada data tabel.
 - Password di atas mengikuti catatan konfigurasi yang diberikan. Jika repository GitHub akan dibuat **Public**, jangan cantumkan password asli dalam dokumentasi. Ganti dengan placeholder seperti `<PASSWORD_DATABASE>` sebelum dipublikasikan.
