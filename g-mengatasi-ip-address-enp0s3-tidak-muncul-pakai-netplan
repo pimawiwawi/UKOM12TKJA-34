@@ -28,7 +28,7 @@ Contoh:
 ```bash
 2: enp0s3: <BROADCAST,MULTICAST,UP,LOWER_UP>
     link/ether 08:00:27:b0:22:13
-    inet 100.100.4.2/30
+    inet 100.100.34.2/30
 ```
 
 Apabila bagian `inet` belum menampilkan IP Address IPv4, berarti interface belum mendapatkan konfigurasi IP yang dapat digunakan.
@@ -56,13 +56,13 @@ Setelah menjalankan perintah tersebut, sistem akan meminta password dari penggun
 Apabila berhasil, tampilan terminal akan berubah dari:
 
 ```bash
-arum@arum:~$
+prima@prima:~$
 ```
 
 Menjadi:
 
 ```bash
-root@arum:/home/arum#
+root@prima:/home/prima#
 ```
 
 Perubahan tersebut menandakan bahwa pengguna sudah berada pada akun root dan dapat melakukan konfigurasi sistem.
@@ -123,10 +123,10 @@ network:
         enp0s3:
             dhcp4: false
             addresses:
-                - 100.100.4.2/30
+                - 100.100.34.2/30
             routes:
                 - to: default
-                  via: 100.100.4.1
+                  via: 100.100.34.1
             nameservers:
                 addresses:
                     - 8.8.8.8
@@ -139,21 +139,21 @@ network:
 
 Digunakan untuk menonaktifkan DHCP IPv4 pada interface `enp0s3`. Dengan demikian, sistem tidak lagi meminta IP Address secara otomatis dari DHCP Server, melainkan menggunakan IP Address yang ditentukan secara manual.
 
-**2. `addresses: - 100.100.4.2/30`**
+**2. `addresses: - 100.100.34.2/30`**
 
 Digunakan untuk menentukan IP Address statis yang akan diberikan kepada interface `enp0s3`.
 
 Keterangan:
-- `100.100.4.2` merupakan IP Address yang diberikan kepada Ubuntu Server.
+- `100.100.34.2` merupakan IP Address yang diberikan kepada Ubuntu Server.
 - `/30` merupakan prefix yang menunjukkan subnet mask `255.255.255.252`.
 
 Pada subnet `/30`, terdapat empat alamat IP, yaitu:
-- Network Address: `100.100.4.0`
-- Host pertama: `100.100.4.1`
-- Host kedua: `100.100.4.2`
-- Broadcast Address: `100.100.4.3`
+- Network Address: `100.100.34.0`
+- Host pertama: `100.100.34.1`
+- Host kedua: `100.100.34.2`
+- Broadcast Address: `100.100.34.3`
 
-Dengan demikian, IP `100.100.4.2` dapat digunakan sebagai alamat server, sedangkan `100.100.4.1` digunakan sebagai gateway sesuai dengan topologi jaringan.
+Dengan demikian, IP `100.100.34.2` dapat digunakan sebagai alamat server, sedangkan `100.100.34.1` digunakan sebagai gateway sesuai dengan topologi jaringan.
 
 **3. `routes:`**
 
@@ -163,7 +163,7 @@ Bagian ini digunakan untuk menentukan jalur routing yang akan digunakan oleh Ubu
 
 Menunjukkan bahwa routing yang dikonfigurasi merupakan default route. Artinya, jalur tersebut akan digunakan ketika tujuan komunikasi tidak ditemukan pada routing yang lebih spesifik.
 
-**5. `via: 100.100.4.1`**
+**5. `via: 100.100.34.1`**
 
 Menentukan alamat IP gateway yang digunakan sebagai jalur keluar menuju jaringan lain atau internet.
 
@@ -259,7 +259,7 @@ Apabila konfigurasi berhasil, akan muncul informasi seperti berikut:
 ```bash
 2: enp0s3: <BROADCAST,MULTICAST,UP,LOWER_UP>
     link/ether 08:00:27:b0:22:13
-    inet 100.100.4.2/30 brd 100.100.4.3
+    inet 100.100.34.2/30 brd 100.100.34.3
 ```
 
 **Penjelasan:**
@@ -267,8 +267,8 @@ Apabila konfigurasi berhasil, akan muncul informasi seperti berikut:
 - `enp0s3` menunjukkan nama interface jaringan.
 - `UP` menunjukkan bahwa interface telah diaktifkan.
 - `LOWER_UP` menunjukkan bahwa koneksi pada lapisan fisik atau virtual interface terdeteksi aktif.
-- `inet 100.100.4.2/30` menunjukkan bahwa interface sudah memiliki IP Address IPv4 sesuai konfigurasi.
-- `brd 100.100.4.3` menunjukkan alamat broadcast dari jaringan tersebut.
+- `inet 100.100.34.2/30` menunjukkan bahwa interface sudah memiliki IP Address IPv4 sesuai konfigurasi.
+- `brd 100.100.34.3` menunjukkan alamat broadcast dari jaringan tersebut.
 
 Apabila IP Address sudah muncul, berarti konfigurasi Static IP berhasil diterapkan pada interface `enp0s3`.
 
@@ -492,7 +492,7 @@ Buka Command Prompt pada perangkat client Windows.
 Kemudian jalankan perintah:
 
 ```bash
-ping 100.100.4.2
+ping 100.100.34.2
 ```
 
 **Penjelasan:**
