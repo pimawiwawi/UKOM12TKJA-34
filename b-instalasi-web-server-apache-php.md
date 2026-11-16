@@ -41,14 +41,14 @@ Buat file PHP:
 sudo nano /var/www/html/database.php
 ```
 
-Masukkan kode berikut. Kode ini menghubungkan PHP ke database `ukom4`, membaca data dari tabel `informasi`, lalu menampilkan hasilnya di browser.
+Masukkan kode berikut. Kode ini menghubungkan PHP ke database `ukom34`, membaca data dari tabel `informasi`, lalu menampilkan hasilnya di browser.
 
 ```php
 <?php
 $host = "localhost";
-$user = "ukom4";
+$user = "ukom34";
 $password = "GANTI_DENGAN_PASSWORD_DATABASE";
-$database = "ukom4";
+$database = "ukom34";
 
 $conn = new mysqli($host, $user, $password, $database);
 
@@ -99,10 +99,10 @@ sudo systemctl restart apache2
 
 Dari browser client yang dapat menjangkau Ubuntu Server, buka alamat berikut:
 
-- `http://ukom12tkja-4.sch.id/` — untuk menguji landing page `index.html` melalui domain.
-- `http://ukom12tkja-4.sch.id/database.php` — untuk menguji koneksi PHP ke MariaDB dan menampilkan data dari tabel `informasi`.
-- Jika DNS domain belum siap, akses sementara melalui IP server: `http://10.10.4.3/` dan `http://10.10.4.3/database.php`.
+- `http://ukom12tkja-34.sch.id/` — untuk menguji landing page `index.html` melalui domain.
+- `http://ukom12tkja-34.sch.id/database.php` — untuk menguji koneksi PHP ke MariaDB dan menampilkan data dari tabel `informasi`.
+- Jika DNS domain belum siap, akses sementara melalui IP server: `http://10.10.34.3/` dan `http://10.10.34.3/database.php`.
 
 Jika halaman landing page tampil dan halaman `database.php` menunjukkan pesan **“Koneksi Database Berhasil”** beserta data informasi, maka Apache, PHP, dan koneksi ke database telah berjalan.
 
-> **Catatan IP:** catatan awalmu menyebut alamat `10.10.4.2`, tetapi konfigurasi Bagian A menetapkan Ubuntu Server pada `10.10.4.3/28` dan `10.10.4.2` sebagai IP laptop pengelola. Karena itu, contoh URL di dokumen ini menggunakan `10.10.4.3`. Jika IP Ubuntu Server di praktik sebenarnya berbeda, ganti URL sesuai IP server yang aktif. Sebelum dipublikasikan ke repository Public, pastikan tidak ada password asli yang tersimpan dalam kode.
+> **Catatan IP:** catatan awalmu menyebut alamat `10.10.34.2`, tetapi konfigurasi Bagian A menetapkan Ubuntu Server pada `10.10.34.3/28` dan `10.10.34.2` sebagai IP laptop pengelola. Karena itu, contoh URL di dokumen ini menggunakan `10.10.4.3`. Jika IP Ubuntu Server di praktik sebenarnya berbeda, ganti URL sesuai IP server yang aktif. Sebelum dipublikasikan ke repository Public, pastikan tidak ada password asli yang tersimpan dalam kode.
