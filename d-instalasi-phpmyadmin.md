@@ -36,7 +36,7 @@ Pastikan `apache2ctl configtest` menampilkan `Syntax OK` sebelum memulai ulang A
 Buka browser pada client yang dapat menjangkau Ubuntu Server, lalu akses:
 
 ```text
-http://10.10.4.3/phpmyadmin
+http://100.100.34.3/phpmyadmin
 ```
 
 Jika halaman phpMyAdmin belum dapat dibuka, lanjutkan pemeriksaan berikut.
@@ -76,17 +76,17 @@ Jika perintah `ln -s` memberi tahu bahwa file tujuan sudah ada, jangan jalankan 
 Coba akses kembali melalui browser menggunakan IP server:
 
 ```text
-http://10.10.4.3/phpmyadmin
+http://100.100.34.3/phpmyadmin
 ```
 
 Jika DNS domain sudah diarahkan dengan benar ke Ubuntu Server, phpMyAdmin juga dapat diuji melalui domain:
 
 ```text
-http://ukom12tkja-4.sch.id/phpmyadmin
+http://ukom12tkja-34.sch.id/phpmyadmin
 ```
 
 ## Catatan
 
-- Pada catatan awal terdapat URL IP `10.10.4.2`, tetapi dokumentasi sebelumnya menetapkan IP Ubuntu Server `10.10.4.3`. Bagian ini menggunakan `10.10.4.3`; sesuaikan jika alamat server yang sebenarnya berbeda.
-- Domain diseragamkan menjadi `ukom12tkja-4.sch.id` sesuai koreksi sebelumnya.
+- Pada catatan awal terdapat URL IP `100.100.34.2`, tetapi dokumentasi sebelumnya menetapkan IP Ubuntu Server `100.100.34.3`. Bagian ini menggunakan `100.100.34.3`; sesuaikan jika alamat server yang sebenarnya berbeda.
+- Domain diseragamkan menjadi `ukom12tkja-34.sch.id` sesuai koreksi sebelumnya.
 - Login phpMyAdmin menggunakan akun MariaDB yang memiliki akses ke database. Jangan menaruh password asli dalam dokumentasi yang akan dipublikasikan ke repository Public.
