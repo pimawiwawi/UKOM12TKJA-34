@@ -16,18 +16,18 @@ Pembagian alamat IP yang digunakan adalah:
 
 | Parameter | Nilai |
 |---|---|
-| Network | 100.100.4.0/30 |
-| IP Router MikroTik | 100.100.4.1 |
-| IP Ubuntu Server | 100.100.4.2/30 |
+| Network | 100.100.34.0/30 |
+| IP Router MikroTik | 100.100.34.1 |
+| IP Ubuntu Server | 100.100.34.2/30 |
 | Subnet Mask | 255.255.255.252 |
-| Gateway | 100.100.4.1 |
+| Gateway | 100.100.34.1 |
 | DNS Primary | 8.8.8.8 |
 | DNS Secondary | 1.1.1.1 |
 | Network Interface | enp0s3 |
 
 Keterangan:
-- `100.100.4.1` merupakan IP Address router MikroTik pada Ether3-SERVER.
-- `100.100.4.2` merupakan IP Address statis Ubuntu Server.
+- `100.100.34.1` merupakan IP Address router MikroTik pada Ether3-SERVER.
+- `100.100.34.2` merupakan IP Address statis Ubuntu Server.
 - `8.8.8.8` merupakan DNS publik Google.
 - `1.1.1.1` merupakan DNS publik Cloudflare.
 
@@ -46,12 +46,12 @@ Langkah-langkah:
 Setelah berhasil login, terminal akan menampilkan prompt seperti berikut:
 
 ```bash
-arum@arum:~$
+prima@prima:~$
 ```
 
 Keterangan:
-- `arum` pertama menunjukkan username yang digunakan.
-- `arum` kedua menunjukkan hostname komputer.
+- `prima` pertama menunjukkan username yang digunakan.
+- `prima` kedua menunjukkan hostname komputer.
 - `~` menunjukkan direktori home pengguna.
 - `$` menunjukkan bahwa pengguna sedang menggunakan hak akses biasa.
 
@@ -70,7 +70,7 @@ Tekan Enter, kemudian masukkan password pengguna apabila diminta.
 Apabila berhasil, prompt terminal akan berubah menjadi:
 
 ```bash
-root@arum:/home/arum#
+root@prima:/home/prima#
 ```
 
 Perubahan tanda `$` menjadi `#` menunjukkan bahwa terminal sekarang menggunakan hak akses root.
@@ -101,14 +101,14 @@ network:
   ethernets:
     enp0s3:
       addresses:
-        - "100.100.4.2/30"
+        - "100.100.34.2/30"
       nameservers:
         addresses:
           - 8.8.8.8
           - 1.1.1.1
       routes:
         - to: default
-          via: "100.100.4.1"
+          via: "100.100.34.1"
 ```
 
 **Penjelasan setiap konfigurasi:**
@@ -149,12 +149,12 @@ Menunjukkan nama interface jaringan yang digunakan oleh Ubuntu Server untuk terh
 
 ```yaml
 addresses:
-  - "100.100.4.2/30"
+  - "100.100.34.2/30"
 ```
 
 Digunakan untuk menentukan alamat IP statis yang akan diberikan kepada interface enp0s3.
 
-Ubuntu Server menggunakan IP `100.100.4.2/30` agar berada dalam satu jaringan dengan interface Ether3-SERVER pada MikroTik.
+Ubuntu Server menggunakan IP `100.100.34.2/30` agar berada dalam satu jaringan dengan interface Ether3-SERVER pada MikroTik.
 
 **f. nameservers**
 
@@ -178,12 +178,12 @@ Dengan konfigurasi tersebut, Ubuntu Server dapat melakukan resolusi nama domain,
 ```yaml
 routes:
   - to: default
-    via: "100.100.4.1"
+    via: "100.100.34.1"
 ```
 
 Digunakan untuk menentukan jalur routing default yang akan digunakan ketika Ubuntu Server mengakses jaringan di luar subnet lokal.
 
-Alamat `100.100.4.1` merupakan gateway yang mengarah ke router MikroTik.
+Alamat `100.100.34.1` merupakan gateway yang mengarah ke router MikroTik.
 
 Dengan demikian, seluruh komunikasi menuju jaringan lain akan diteruskan melalui router tersebut.
 
@@ -244,7 +244,7 @@ Perintah ini digunakan untuk menampilkan alamat IP yang terpasang pada setiap in
 Pastikan interface `enp0s3` memiliki alamat:
 
 ```text
-100.100.4.2/30
+100.100.34.2/30
 ```
 
 Apabila alamat tersebut muncul, berarti IP Address statis sudah diterapkan.
@@ -262,7 +262,7 @@ Perintah ini digunakan untuk menampilkan tabel routing yang dimiliki Ubuntu Serv
 Pastikan terdapat informasi default route seperti berikut:
 
 ```text
-default via 100.100.4.1 dev enp0s3
+default via 100.100.34.1 dev enp0s3
 ```
 
 Informasi tersebut menunjukkan bahwa koneksi menuju jaringan luar akan diteruskan melalui gateway MikroTik.
@@ -274,7 +274,7 @@ Sebelum menguji koneksi internet, pastikan Ubuntu Server dapat berkomunikasi den
 Masukkan perintah:
 
 ```bash
-ping 100.100.4.1
+ping 100.100.34.1
 ```
 
 Perintah tersebut digunakan untuk menguji konektivitas antara Ubuntu Server dan router MikroTik.
@@ -282,7 +282,7 @@ Perintah tersebut digunakan untuk menguji konektivitas antara Ubuntu Server dan 
 Apabila muncul balasan seperti:
 
 ```text
-64 bytes from 100.100.4.1
+64 bytes from 100.100.34.1
 ```
 
 Berarti komunikasi antara server dan router berhasil.
@@ -337,8 +337,8 @@ Setelah seluruh konfigurasi selesai, Ubuntu Server diharapkan memiliki kondisi b
 
 | No. | Pengujian | Hasil yang Diharapkan |
 |---|---|---|
-| 1 | IP Address | 100.100.4.2/30 |
-| 2 | Gateway | 100.100.4.1 |
+| 1 | IP Address | 100.100.34.2/30 |
+| 2 | Gateway | 100.100.34.1 |
 | 3 | DNS Primary | 8.8.8.8 |
 | 4 | DNS Secondary | 1.1.1.1 |
 | 5 | Ping Gateway | Berhasil |
