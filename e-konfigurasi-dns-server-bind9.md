@@ -20,9 +20,9 @@ sudo nano /etc/bind/named.conf.local
 Tambahkan konfigurasi berikut di bagian paling bawah file:
 
 ```conf
-zone "ukom12tkja-4.sch.id" {
+zone "ukom12tkja-34.sch.id" {
     type master;
-    file "/etc/bind/db.ukom12tkja-4";
+    file "/etc/bind/db.ukom12tkja-34";
 };
 ```
 
@@ -33,20 +33,20 @@ Simpan file setelah selesai mengedit.
 Salin file zona bawaan sebagai template:
 
 ```bash
-sudo cp /etc/bind/db.local /etc/bind/db.ukom12tkja-4
+sudo cp /etc/bind/db.local /etc/bind/db.ukom12tkja-34
 ```
 
 Kemudian buka file zona yang baru dibuat:
 
 ```bash
-sudo nano /etc/bind/db.ukom12tkja-4
+sudo nano /etc/bind/db.ukom12tkja-34
 ```
 
 Sesuaikan isinya menjadi seperti berikut:
 
 ```dns
 $TTL 604800
-@   IN  SOA ns.ukom12tkja-4.sch.id. root.ukom12tkja-4.sch.id. (
+@   IN  SOA ns.ukom12tkja-34.sch.id. root.ukom12tkja-34.sch.id. (
         2026102501
         604800
         86400
@@ -54,13 +54,13 @@ $TTL 604800
         604800
 )
 
-@   IN  NS  ns.ukom12tkja-4.sch.id.
-@   IN  A   10.10.4.3
-ns  IN  A   10.10.4.3
-www IN  A   10.10.4.3
+@   IN  NS  ns.ukom12tkja-34.sch.id.
+@   IN  A   100.100.34.2
+ns  IN  A   100.100.34.2
+www IN  A   100.100.34.2
 ```
 
-Alamat `10.10.4.3` digunakan sebagai contoh IP Ubuntu Server untuk konfigurasi UKOM absen 4. Jika IP server yang dipakai saat praktik berbeda, ganti alamat tersebut dengan IP server yang sebenarnya. Nomor serial zona juga perlu dinaikkan setiap kali file zona diubah.
+Alamat `100.100.34.2` digunakan sebagai contoh IP Ubuntu Server untuk konfigurasi UKOM absen 4. Jika IP server yang dipakai saat praktik berbeda, ganti alamat tersebut dengan IP server yang sebenarnya. Nomor serial zona juga perlu dinaikkan setiap kali file zona diubah.
 
 ## 4. Mengatur Opsi BIND9
 
@@ -76,14 +76,14 @@ Sesuaikan bagian `options` agar memuat konfigurasi berikut. Jika file sudah memi
 options {
     directory "/var/cache/bind";
 
-    listen-on { 127.0.0.1; 10.10.4.3; };
+    listen-on { 127.0.0.1; 100.100.34.2; };
     listen-on-v6 { any; };
 
     allow-query {
         localhost;
-        10.10.4.0/28;
-        100.100.4.0/30;
-        192.168.4.0/24;
+        10.10.34.0/28;
+        100.100.34.0/30;
+        192.168.34.0/24;
     };
 
     recursion yes;
@@ -113,7 +113,7 @@ sudo named-checkconf
 Jika tidak ada pesan kesalahan, periksa file zona:
 
 ```bash
-sudo named-checkzone ukom12tkja-4.sch.id /etc/bind/db.ukom12tkja-4
+sudo named-checkzone ukom12tkja-34.sch.id /etc/bind/db.ukom12tkja-34
 ```
 
 Pastikan hasil pemeriksaan menunjukkan status `OK`.
@@ -143,11 +143,11 @@ Pastikan status layanan menunjukkan `active (running)`.
 Jalankan perintah berikut untuk menguji domain utama dan subdomain `www` melalui DNS lokal:
 
 ```bash
-dig @127.0.0.1 ukom12tkja-4.sch.id
-dig @127.0.0.1 www.ukom12tkja-4.sch.id
+dig @127.0.0.1 ukom12tkja-34.sch.id
+dig @127.0.0.1 www.ukom12tkja-34.sch.id
 ```
 
-Periksa bagian jawaban (`ANSWER SECTION`) dan pastikan alamat yang muncul mengarah ke IP Ubuntu Server, yaitu `10.10.4.3` pada contoh ini.
+Periksa bagian jawaban (`ANSWER SECTION`) dan pastikan alamat yang muncul mengarah ke IP Ubuntu Server, yaitu `100.100.34.2` pada contoh ini.
 
 ## 8. Menguji DNS dari Komputer Client
 
@@ -160,11 +160,11 @@ ipconfig /flushdns
 Kemudian periksa hasil resolusi domain:
 
 ```cmd
-nslookup ukom12tkja-4.sch.id
-nslookup www.ukom12tkja-4.sch.id
+nslookup ukom12tkja-34.sch.id
+nslookup www.ukom12tkja-34.sch.id
 ```
 
-Pastikan hasilnya mengarah ke IP Ubuntu Server. Komputer client juga harus menggunakan DNS server yang benar, yaitu IP Ubuntu Server (`10.10.25.3` pada contoh ini). Jika DNS yang digunakan client masih mengarah ke alamat lain, hasil `nslookup` tanpa menyebut server DNS tertentu bisa berbeda.
+Pastikan hasilnya mengarah ke IP Ubuntu Server. Komputer client juga harus menggunakan DNS server yang benar, yaitu IP Ubuntu Server (`100.100.34.2` pada contoh ini). Jika DNS yang digunakan client masih mengarah ke alamat lain, hasil `nslookup` tanpa menyebut server DNS tertentu bisa berbeda.
 
 ## 9. Kesimpulan
 
