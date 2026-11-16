@@ -109,7 +109,7 @@ VALUES
 ('UKOM TKJ', 'Web Server dan Database Server'),
 ('Absen 34', 'Konfigurasi jaringan UKOM'),
 ('MikroTik', 'Gateway dan HotSpot'),
-('Server', 'Ubuntu Server (ip ubuntu)');
+('Server', 'Ubuntu Server (100.100.34.2)');
 ```
 
 Untuk melihat data yang tersimpan, jalankan:
