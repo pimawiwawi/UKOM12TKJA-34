@@ -22,13 +22,13 @@ Oleh karena itu, diperlukan perbaikan pada konfigurasi Forward Zone dan Reverse 
 |---|---|
 | Sistem Operasi Server | Ubuntu Server |
 | DNS Software | BIND9 |
-| Domain | ukom12tkja-4.sch.id |
-| IP DNS Server | 10.10.4.3 |
-| Network | 10.10.4.0/24 |
-| Forward Zone | ukom12tkja-4.sch.id |
-| Reverse Zone | 4.10.10.in-addr.arpa |
-| File Forward Zone | /etc/bind/db.ukom12tkja-4 |
-| File Reverse Zone | /etc/bind/db.10.10.4 |
+| Domain | ukom12tkja-34.sch.id |
+| IP DNS Server | 100.100.34.2 |
+| Network | 100.100.34.0/24 |
+| Forward Zone | ukom12tkja-34.sch.id |
+| Reverse Zone | 34.100.100.in-addr.arpa |
+| File Forward Zone | /etc/bind/db.ukom12tkja-34 |
+| File Reverse Zone | /etc/bind/db.100.100.34 |
 
 ---
 
@@ -47,14 +47,14 @@ sudo nano /etc/bind/named.conf.local
 Pastikan konfigurasi di dalamnya sudah sesuai:
 
 ```conf
-zone "ukom12tkja-4.sch.id" {
+zone "ukom12tkja-34.sch.id" {
     type master;
-    file "/etc/bind/db.ukom12tkja-4";
+    file "/etc/bind/db.ukom12tkja-34";
 };
 
-zone "4.10.10.in-addr.arpa" {
+zone "34.100.100.in-addr.arpa" {
     type master;
-    file "/etc/bind/db.10.10.4";
+    file "/etc/bind/db.100.100.34";
 };
 ```
 
@@ -76,14 +76,14 @@ Simpan perubahan dengan menekan `CTRL + O`, Enter, kemudian `CTRL + X`.
 Buka file Forward Zone:
 
 ```bash
-sudo nano /etc/bind/db.ukom12tkja-4
+sudo nano /etc/bind/db.ukom12tkja-34
 ```
 
 Sesuaikan konfigurasi menjadi:
 
 ```dns
 $TTL 604800
-@   IN  SOA ukom12tkja-4.sch.id. root.ukom12tkja-4.sch.id. (
+@   IN  SOA ukom12tkja-34.sch.id. root.ukom12tkja-34.sch.id. (
         2026111201
         604800
         86400
@@ -91,9 +91,9 @@ $TTL 604800
         604800
 )
 
-@       IN  NS  ukom12tkja-4.sch.id.
-@       IN  A   10.10.4.3
-www     IN  A   10.10.4.3
+@       IN  NS  ukom12tkja-34.sch.id.
+@       IN  A   100.100.34.2
+www     IN  A   100.100.34.2
 ```
 
 **Penjelasan:**
@@ -104,10 +104,10 @@ Konfigurasi Forward Zone berfungsi menghubungkan nama domain dengan alamat IP DN
 - `NS` menentukan DNS Server yang bertanggung jawab terhadap zona.
 - `A` digunakan untuk menghubungkan nama domain dengan alamat IPv4.
 - `@` mewakili nama domain utama.
-- `www` merupakan subdomain yang dapat diakses melalui nama `www.ukom12tkja-4.sch.id`.
+- `www` merupakan subdomain yang dapat diakses melalui nama `www.ukom12tkja-34.sch.id`.
 - Serial '2026111201' merupakan nomor versi zona. Setiap kali mengubah isi file zona, naikkan serialnya agar perubahan dapat dikenali oleh DNS.
 
-Dengan konfigurasi tersebut, domain utama dan subdomain www akan diarahkan ke alamat IP `10.10.4.3`.
+Dengan konfigurasi tersebut, domain utama dan subdomain www akan diarahkan ke alamat IP `100.100.34.2`.
 
 Simpan konfigurasi dengan `CTRL + O`, Enter, kemudian `CTRL + X`.
 
@@ -116,14 +116,14 @@ Simpan konfigurasi dengan `CTRL + O`, Enter, kemudian `CTRL + X`.
 Buka file Reverse Zone:
 
 ```bash
-sudo nano /etc/bind/db.10.10.4
+sudo nano /etc/bind/db.100.100.34
 ```
 
 Sesuaikan konfigurasi menjadi:
 
 ```dns
 $TTL 604800
-@   IN  SOA ukom12tkja-4.sch.id. root.ukom12tkja-4.sch.id. (
+@   IN  SOA ukom12tkja-34.sch.id. root.ukom12tkja-34.sch.id. (
         2026111201
         604800
         86400
@@ -131,8 +131,8 @@ $TTL 604800
         604800
 )
 
-@   IN  NS  ukom12tkja-4.sch.id.
-3   IN  PTR ukom12tkja-4.sch.id.
+@   IN  NS  ukom12tkja-34.sch.id.
+2   IN  PTR ukom12tkja-34.sch.id.
 ```
 
 **Penjelasan:**
@@ -142,18 +142,18 @@ Reverse Zone merupakan bagian terpenting dalam penanganan status `Server: Unknow
 Perhatikan baris berikut:
 
 ```dns
-3   IN  PTR ukom12tkja-4.sch.id.
+2   IN  PTR ukom12tkja-34.sch.id.
 ```
 
-Angka `3` merupakan oktet terakhir dari alamat IP `10.10.4.3`.
+Angka `2` merupakan oktet terakhir dari alamat IP `100.100.34.2`.
 
-Sementara itu, nama zona `4.10.10.in-addr.arpa` sudah mewakili tiga oktet sebelumnya. Jika digabungkan, alamat Reverse DNS menjadi:
+Sementara itu, nama zona `34.100.100.in-addr.arpa` sudah mewakili tiga oktet sebelumnya. Jika digabungkan, alamat Reverse DNS menjadi:
 
 ```text
-3.4.10.10.in-addr.arpa
+2.34.100.100.in-addr.arpa
 ```
 
-PTR Record tersebut akan memberikan nama `ukom12tkja-4.sch.id` ketika komputer melakukan pencarian Reverse DNS terhadap IP `10.10.4.3`.
+PTR Record tersebut akan memberikan nama `ukom12tkja-34.sch.id` ketika komputer melakukan pencarian Reverse DNS terhadap IP `100.100.34.2`.
 
 Simpan konfigurasi dengan `CTRL + O`, Enter, kemudian `CTRL + X`.
 
@@ -176,26 +176,26 @@ Jika tidak terdapat kesalahan, terminal akan kembali ke prompt tanpa menampilkan
 **B. Memeriksa Forward Zone**
 
 ```bash
-sudo named-checkzone ukom12tkja-4.sch.id /etc/bind/db.ukom12tkja-4
+sudo named-checkzone ukom12tkja-34.sch.id /etc/bind/db.ukom12tkja-34
 ```
 
 Hasil yang diharapkan:
 
 ```text
-zone ukom12tkja-4.sch.id/IN: loaded serial 2026111201
+zone ukom12tkja-34.sch.id/IN: loaded serial 2026111201
 OK
 ```
 
 **C. Memeriksa Reverse Zone**
 
 ```bash
-sudo named-checkzone 4.10.10.in-addr.arpa /etc/bind/db.10.10.4
+sudo named-checkzone 34.100.100.in-addr.arpa /etc/bind/db.100.100.34
 ```
 
 Hasil yang diharapkan:
 
 ```text
-zone 4.10.10.in-addr.arpa/IN: loaded serial 2026111201
+zone 34.100.100.in-addr.arpa/IN: loaded serial 2026111201
 OK
 ```
 
@@ -250,14 +250,14 @@ Masukkan konfigurasi berikut:
 
 | Kolom | Alamat |
 |---|---|
-| Preferred DNS server | 10.10.4.3 |
+| Preferred DNS server | 100.100.34.2 |
 | Alternate DNS server | Kosongkan dahulu untuk pengujian |
 
 Klik OK, kemudian Close.
 
 **Penjelasan:**
 
-Pengaturan ini bertujuan agar laptop menggunakan DNS Server `10.10.4.3` sebagai DNS utama ketika melakukan permintaan penerjemahan nama domain.
+Pengaturan ini bertujuan agar laptop menggunakan DNS Server `100.100.34.2` sebagai DNS utama ketika melakukan permintaan penerjemahan nama domain.
 
 Pastikan alamat IP laptop masih berada pada jaringan yang dapat menjangkau DNS Server tersebut.
 
@@ -282,7 +282,7 @@ ipconfig /all
 Cari adapter jaringan yang sedang digunakan dan pastikan bagian DNS Servers menunjukkan:
 
 ```text
-DNS Servers . . . . . . . . . . : 10.10.4.3
+DNS Servers . . . . . . . . . . : 100.100.34.2
 ```
 
 Jika alamat tersebut sudah muncul, berarti laptop telah menggunakan DNS Server yang ditentukan pada konfigurasi IPv4.
@@ -296,17 +296,17 @@ Setelah seluruh konfigurasi selesai, lakukan pengujian menggunakan perintah `nsl
 Jalankan:
 
 ```cmd
-nslookup ukom12tkja-4.sch.id 10.10.4.3
+nslookup ukom12tkja-34.sch.id 10.10.34.2
 ```
 
 Hasil yang diharapkan:
 
 ```text
-Server:  ukom12tkja-4.sch.id
-Address: 10.10.4.3
+Server:  ukom12tkja-34.sch.id
+Address: 100.100.34.2
 
-Name:    ukom12tkja-4.sch.id
-Address: 10.10.4.3
+Name:    ukom12tkja-34.sch.id
+Address: 100.100.34.2
 ```
 
 Pengujian ini memastikan DNS Server dapat memberikan jawaban terhadap permintaan domain dan nama server dapat dikenali melalui Reverse DNS.
@@ -316,17 +316,17 @@ Pengujian ini memastikan DNS Server dapat memberikan jawaban terhadap permintaan
 Setelah pengujian pertama berhasil, jalankan:
 
 ```cmd
-nslookup ukom12tkja-4.sch.id
+nslookup ukom12tkja-34.sch.id
 ```
 
 Hasil yang diharapkan:
 
 ```text
-Server:  ukom12tkja-4.sch.id
-Address: 10.10.4.3
+Server:  ukom12tkja-34.sch.id
+Address: 100.100.34.2
 
-Name:    ukom12tkja-4.sch.id
-Address: 10.10.4.3
+Name:    ukom12tkja-34.sch.id
+Address: 100.100.34.2
 ```
 
 **Penjelasan:**
@@ -349,7 +349,7 @@ Lakukan pemeriksaan berdasarkan gejala yang ditemukan agar proses perbaikan lebi
 
 ```text
 Server: Unknown
-Address: 10.10.4.3
+Address: 100.100.34.2
 ```
 
 **Kemungkinan penyebab:**
@@ -364,31 +364,31 @@ Address: 10.10.4.3
 Periksa Reverse Zone:
 
 ```bash
-sudo named-checkzone 4.10.10.in-addr.arpa /etc/bind/db.10.10.4
+sudo named-checkzone 34.100.100.in-addr.arpa /etc/bind/db.100.100.34
 ```
 
 Kemudian lakukan pengujian:
 
 ```bash
-dig @127.0.0.1 -x 10.10.4.3
+dig @127.0.0.1 -x 100.100.34.2
 ```
 
 Pastikan hasil PTR mengarah ke:
 
 ```text
-ukom12tkja-4.sch.id.
+ukom12tkja-34.sch.id.
 ```
 
 Jika hasilnya belum sesuai, buka kembali file Reverse Zone:
 
 ```bash
-sudo nano /etc/bind/db.10.10.4
+sudo nano /etc/bind/db.100.100.34
 ```
 
 Pastikan terdapat konfigurasi:
 
 ```dns
-3 IN PTR ukom12tkja-4.sch.id.
+2 IN PTR ukom12tkja-34.sch.id.
 ```
 
 Setelah diperbaiki, naikkan serial SOA, periksa zona kembali, kemudian restart BIND9.
@@ -404,7 +404,7 @@ Forward DNS dapat menerjemahkan domain menjadi IP Address, tetapi nama DNS Serve
 Jalankan perintah berikut pada Windows CMD:
 
 ```cmd
-nslookup -type=PTR 3.4.10.10.in-addr.arpa 10.10.4.3
+nslookup -type=PTR 2.34.100.100.in-addr.arpa 100.100.34.2
 ```
 
 Perintah tersebut digunakan untuk meminta informasi PTR Record secara langsung kepada DNS Server.
@@ -446,7 +446,7 @@ sudo ss -tulpn | grep ':53'
 Periksa konektivitas dari Windows:
 
 ```cmd
-ping 10.10.4.3
+ping 100.100.34.2
 ```
 
 Jika layanan tidak berjalan, periksa pesan kesalahannya sebelum melakukan perbaikan.
@@ -472,7 +472,7 @@ Cari bagian DNS Servers pada adapter jaringan yang sedang digunakan.
 Pastikan alamat DNS yang muncul adalah:
 
 ```text
-10.10.4.3
+100.100.34.2
 ```
 
 Jika belum sesuai, periksa kembali pengaturan IPv4 pada adapter jaringan Windows.
@@ -498,13 +498,13 @@ sudo named-checkconf
 Periksa Forward Zone:
 
 ```bash
-sudo named-checkzone ukom12tkja-4.sch.id /etc/bind/db.ukom12tkja-4
+sudo named-checkzone ukom12tkja-34.sch.id /etc/bind/db.ukom12tkja-34
 ```
 
 Periksa Reverse Zone:
 
 ```bash
-sudo named-checkzone 4.10.10.in-addr.arpa /etc/bind/db.10.10.4
+sudo named-checkzone 34.100.100.in-addr.arpa /etc/bind/db.100.100.34
 ```
 
 Jika ditemukan kesalahan, perbaiki file konfigurasi yang bermasalah.
@@ -556,8 +556,8 @@ sudo ufw status
 Jika UFW aktif dan belum mengizinkan DNS dari jaringan lab, tambahkan aturan:
 
 ```bash
-sudo ufw allow from 10.10.4.0/24 to any port 53 proto udp
-sudo ufw allow from 10.10.4.0/24 to any port 53 proto tcp
+sudo ufw allow from 100.100.34.0/24 to any port 53 proto udp
+sudo ufw allow from 100.100.34.0/24 to any port 53 proto tcp
 ```
 
 Setelah itu, lakukan pengujian kembali dari laptop.
@@ -593,10 +593,10 @@ Selain itu, konfigurasi Forward DNS harus dipastikan berjalan dengan benar agar 
 Setelah seluruh tahapan perbaikan berhasil dilakukan, pengujian dapat dilanjutkan menggunakan perintah:
 
 ```cmd
-nslookup ukom12tkja-4.sch.id
+nslookup ukom12tkja-34.sch.id
 ```
 
-Hasil yang diharapkan adalah bagian `Server` menampilkan nama domain DNS Server, bukan lagi `Unknown`, serta bagian `Address` menunjukkan alamat IP `10.10.4.3`.
+Hasil yang diharapkan adalah bagian `Server` menampilkan nama domain DNS Server, bukan lagi `Unknown`, serta bagian `Address` menunjukkan alamat IP `100.100.34.2`.
 
 Dengan demikian, konfigurasi Forward DNS dan Reverse DNS telah berjalan sesuai kebutuhan pengujian.
 
