@@ -13,9 +13,9 @@ Router menggunakan empat interface dengan fungsi sebagai berikut:
 | Interface | Nama Interface | Network | Fungsi |
 |---|---|---|---|
 | Ether1 | Ether1-ISP | Sesuai ISP | Koneksi internet |
-| Ether2 | Ether2-CLIENT | 10.10.4.0/28 | Client kabel |
-| Ether3 | Ether3-SERVER | 100.100.4.0/30 | Web Server dan Database Server |
-| Wlan1 | Wlan1-HOTSPOT | 192.168.4.0/24 | Client wireless |
+| Ether2 | Ether2-CLIENT | 10.10.34.0/28 | Client kabel |
+| Ether3 | Ether3-SERVER | 100.100.34.0/30 | Web Server dan Database Server |
+| Wlan1 | Wlan1-HOTSPOT | 192.168.34.0/24 | Client wireless |
 
 **Keterangan:** Angka 4 pada oktet ketiga merupakan nomor absen. Apabila nomor absen berbeda, sesuaikan alamat IP berdasarkan nomor masing-masing.
 
@@ -70,17 +70,17 @@ IP Address diberikan pada masing-masing interface agar router dapat menjadi gate
 
 **Konfigurasi Ether2-CLIENT:**
 
-- Address: `10.10.4.1/28`
+- Address: `10.10.34.1/28`
 - Interface: `Ether2-CLIENT`
 
 **Konfigurasi Ether3-SERVER:**
 
-- Address: `100.100.4.1/30`
+- Address: `100.100.34.1/30`
 - Interface: `Ether3-SERVER`
 
 **Konfigurasi Wlan1-HOTSPOT:**
 
-- Address: `192.168.4.1/24`
+- Address: `192.168.34.1/24`
 - Interface: `Wlan1-HOTSPOT`
 
 4. Klik **Apply**, kemudian **OK**.
@@ -108,13 +108,13 @@ DNS Static digunakan untuk mengarahkan nama domain server menuju alamat IP serve
 2. Klik tombol **+ (Add)**.
 3. Isi konfigurasi berikut:
 
-   - Name: `ukom12tkja-4.sch.id`
+   - Name: `ukom12tkja-34.sch.id`
    - Type: `A`
-   - Address: `100.100.4.2`
+   - Address: `100.100.34.2`
 
 4. Klik **Apply**, kemudian **OK**.
 
-Dengan konfigurasi tersebut, domain `ukom12tkja-4.sch.id` diarahkan menuju server dengan IP Address `100.100.4.2`.
+Dengan konfigurasi tersebut, domain `ukom12tkja-34.sch.id` diarahkan menuju server dengan IP Address `100.100.34.2`.
 
 ### 3.5. Mengatur Firewall NAT
 
@@ -151,7 +151,7 @@ Wireless dikonfigurasi agar router dapat menyediakan jaringan nirkabel yang nant
 
    - Mode: `ap bridge` (jika tersedia)
    - Band: `2GHz-B/G/N`
-   - SSID: `ukom12tkja-4`
+   - SSID: `ukom12tkja-34`
    - Frequency: Sesuaikan dengan kondisi jaringan
 
 4. Jika diperlukan, buat Security Profile dengan autentikasi WPA2-PSK dan password wireless.
@@ -172,12 +172,12 @@ Hotspot digunakan untuk mengatur autentikasi pengguna sebelum client dapat menga
 4. Ikuti tahapan konfigurasi berikut:
 
    - Hotspot Interface: `Wlan1-HOTSPOT`
-   - Local Address of Network: `192.168.4.1/24`
-   - Address Pool of Network: Gunakan pool yang tersedia atau buat pool khusus, misalnya `192.168.4.2-192.168.4.254`
+   - Local Address of Network: `192.168.34.1/24`
+   - Address Pool of Network: Gunakan pool yang tersedia atau buat pool khusus, misalnya `192.168.34.2-192.168.34.254`
    - Select Certificate: `none`
    - IP Address of SMTP Server: `0.0.0.0`
    - DNS Servers: `8.8.8.8` (tpi biasanya udah otomatis dapet dri ether1, jdi gausah ditambahin lgi)
-   - DNS Name: `ukom12tkja-4.sch.id` (tpi gw gapernah nambahin sih, jdi gausah)
+   - DNS Name: `ukom12tkja-34.sch.id` (tpi gw gapernah nambahin sih, jdi gausah)
    - Name of Local Hotspot User: Sesuaikan kebutuhan
    - Password: Sesuaikan kebutuhan
 
@@ -210,7 +210,7 @@ Rate Limit `7M/7M` digunakan untuk membatasi kecepatan upload dan download setia
 3. Masukkan konfigurasi berikut:
 
    - Server: `all`
-   - Name: `hp-arum`
+   - Name: `hp-prima`
    - Password: `123`
    - Profile: `PROFILE-UKOM`
 
@@ -223,7 +223,7 @@ Rate Limit `7M/7M` digunakan untuk membatasi kecepatan upload dan download setia
 3. Masukkan konfigurasi berikut:
 
    - Server: `all`
-   - Name: `laptop-arum`
+   - Name: `laptop-prima`
    - Password: `123`
    - Profile: `PROFILE-UKOM`
 
@@ -245,10 +245,10 @@ DHCP Server digunakan untuk memberikan IP Address secara otomatis kepada perangk
 4. Ikuti tahapan berikut:
 
    - DHCP Server Interface: `Ether2-CLIENT`
-   - DHCP Address Space: `10.10.4.0/28`
-   - Gateway for DHCP Network: `10.10.4.1`
-   - Addresses to Give Out: `10.10.4.2-10.10.4.14`
-   - DNS Servers: `10.10.4.1` atau DNS yang digunakan
+   - DHCP Address Space: `10.10.34.0/28`
+   - Gateway for DHCP Network: `10.10.34.1`
+   - Addresses to Give Out: `10.10.34.2-10.10.34.14`
+   - DNS Servers: `10.10.34.1` atau DNS yang digunakan
    - Lease Time: Sesuaikan kebutuhan
 
 5. Klik **Next** sampai proses konfigurasi selesai.
@@ -261,9 +261,9 @@ DHCP Server digunakan untuk memberikan IP Address secara otomatis kepada perangk
 
 Contoh IP Address yang dapat diperoleh client:
 
-`10.10.4.14`
+`10.10.34.14`
 
-Alamat tersebut merupakan salah satu alamat host yang tersedia pada subnet `10.10.4.0/28`.
+Alamat tersebut merupakan salah satu alamat host yang tersedia pada subnet `10.10.34.0/28`.
 
 ### 3.9. Mengatur Queue untuk Client Kabel
 
@@ -317,13 +317,13 @@ Jika nama domain berhasil diterjemahkan menjadi alamat IP dan mendapatkan balasa
 ### 4.2. Pengujian Client Wireless Menggunakan HP
 
 1. Aktifkan WiFi pada HP.
-2. Cari SSID `ukom12tkja-4`.
+2. Cari SSID `ukom12tkja-34`.
 3. Hubungkan HP ke jaringan tersebut menggunakan password wireless apabila telah diaktifkan.
 4. Setelah terhubung, buka browser.
 5. Tunggu hingga halaman login Hotspot muncul.
 6. Masukkan akun berikut:
 
-   - Username: `hp-arum`
+   - Username: `hp-prima`
    - Password: `123`
 
 7. Klik Login.
@@ -333,11 +333,11 @@ Jika nama domain berhasil diterjemahkan menjadi alamat IP dan mendapatkan balasa
 ### 4.3. Pengujian Client Wireless Menggunakan Laptop
 
 1. Aktifkan WiFi pada laptop.
-2. Hubungkan laptop ke SSID `ukom12tkja-4`.
+2. Hubungkan laptop ke SSID `ukom12tkja-34`.
 3. Buka browser dan tunggu halaman login Hotspot muncul.
 4. Masukkan akun berikut:
 
-   - Username: `laptop-arum`
+   - Username: `laptop-prima`
    - Password: `123`
 
 5. Klik Login.
@@ -357,13 +357,13 @@ Jika nama domain berhasil diterjemahkan menjadi alamat IP dan mendapatkan balasa
 
 Contoh hasil konfigurasi:
 
-- IPv4 Address: `10.10.4.14`
+- IPv4 Address: `10.10.34.14`
 - Subnet Mask: `255.255.255.240`
-- Default Gateway: `10.10.4.1`
+- Default Gateway: `10.10.34.1`
 
 6. Lakukan pengujian koneksi gateway:
 
-   `ping 10.10.4.1`
+   `ping 10.10.34.1`
 
 7. Lakukan pengujian koneksi internet:
 
