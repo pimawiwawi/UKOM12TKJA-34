@@ -12,13 +12,13 @@ Pada konfigurasi ini, Windows bertindak sebagai SSH Client, sedangkan Ubuntu Ser
 
 | Perangkat | Keterangan | IP Address |
 |---|---|---|
-| Ubuntu Server | SSH Server | 100.100.4.2 |
+| Ubuntu Server | SSH Server | 100.100.34.2 |
 | Windows | SSH Client | Sesuai jaringan client |
-| Interface Server | enp0s3 | 100.100.4.2/30 |
-| Gateway | MikroTik Ether3-SERVER | 100.100.4.1 |
+| Interface Server | enp0s3 | 100.100.34.2/30 |
+| Gateway | MikroTik Ether3-SERVER | 100.100.34.1 |
 | Port SSH | TCP | 22 |
 
-Username Ubuntu Server yang digunakan adalah `arum`.
+Username Ubuntu Server yang digunakan adalah `prima`.
 
 ## C. Langkah-Langkah Pengujian Koneksi SSH
 
@@ -35,13 +35,13 @@ Username Ubuntu Server yang digunakan adalah `arum`.
 Pada CMD Windows, masukkan perintah:
 
 ```bash
-ssh arum@100.100.4.2
+ssh prima@100.100.34.2
 ```
 
 Keterangan:
 - `ssh` merupakan perintah untuk menjalankan koneksi Secure Shell.
-- `arum` merupakan username yang digunakan untuk login ke Ubuntu Server.
-- `100.100.4.2` merupakan IP Address Ubuntu Server.
+- `prima` merupakan username yang digunakan untuk login ke Ubuntu Server.
+- `100.100.34.2` merupakan IP Address Ubuntu Server.
 
 Apabila koneksi berhasil, sistem akan meminta password akun Ubuntu Server.
 
@@ -89,22 +89,22 @@ Setelah memastikan bahwa perubahan Host Key memang berasal dari server yang bena
 Masukkan perintah:
 
 ```bash
-ssh-keygen -R 100.100.4.2
+ssh-keygen -R 100.100.34.2
 ```
 
 Keterangan:
 - `ssh-keygen` merupakan utilitas pengelolaan SSH Key.
 - `-R` digunakan untuk menghapus entri Host Key berdasarkan hostname atau IP Address tertentu.
-- `100.100.4.2` merupakan IP Address Ubuntu Server yang mengalami perubahan Host Key.
+- `100.100.34.2` merupakan IP Address Ubuntu Server yang mengalami perubahan Host Key.
 
-Perintah tersebut akan menghapus entri identitas lama untuk IP `100.100.4.2` dari file `known_hosts`.
+Perintah tersebut akan menghapus entri identitas lama untuk IP `100.100.34.2` dari file `known_hosts`.
 
 Apabila berhasil, akan muncul informasi seperti:
 
 ```text
-Host 100.100.4.2 found: line 16
-Host 100.100.4.2 found: line 17
-Host 100.100.4.2 found: line 18
+Host 100.100.34.2 found: line 16
+Host 100.100.34.2 found: line 17
+Host 100.100.34.2 found: line 18
 
 C:\Users\USERNAME\.ssh\known_hosts updated.
 ```
@@ -139,7 +139,7 @@ ssh-keygen merupakan utilitas untuk mengelola dan memeriksa SSH Key.
 
 Setelah perintah dijalankan, terminal akan menampilkan informasi fingerprint, misalnya:
 
-256 SHA256:xxxxxxxxxxxxxxxxxxxx root@arum (ED25519)
+256 SHA256:xxxxxxxxxxxxxxxxxxxx root@prima (ED25519)
 
 Fingerprint tersebut merupakan identitas Host Key yang saat ini digunakan oleh Ubuntu Server.
 
@@ -152,13 +152,13 @@ Setelah Host Key lama dihapus, lakukan koneksi SSH kembali.
 Masukkan perintah:
 
 ```bash
-ssh arum@100.100.4.2
+ssh prima@100.100.34.2
 ```
 
 Karena identitas server belum tersimpan kembali pada Windows, SSH akan menampilkan konfirmasi keamanan seperti berikut:
 
 ```text
-The authenticity of host '100.100.4.2' can't be established.
+The authenticity of host '100.100.34.2' can't be established.
 
 ED25519 key fingerprint is SHA256:xxxxxxxxxxxxxxxxxxxx.
 
@@ -178,7 +178,7 @@ Kemudian tekan Enter.
 Apabila berhasil, akan muncul pesan:
 
 ```text
-Warning: Permanently added '100.100.4.2' (ED25519) to the list of known hosts.
+Warning: Permanently added '100.100.34.2' (ED25519) to the list of known hosts.
 ```
 
 Pesan tersebut menandakan bahwa Host Key terbaru telah berhasil disimpan ke dalam file `known_hosts` pada Windows.
@@ -190,7 +190,7 @@ Setelah Host Key berhasil disimpan, CMD akan meminta password akun Ubuntu Server
 Masukkan password milik pengguna:
 
 ```text
-arum
+prima
 ```
 
 Tekan Enter setelah memasukkan password.
@@ -206,7 +206,7 @@ Welcome to Ubuntu 24.04.3 LTS
 Prompt terminal juga akan berubah menjadi prompt Ubuntu Server, misalnya:
 
 ```bash
-arum@arum:~$
+prima@prima:~$
 ```
 
 Hal tersebut menunjukkan bahwa Windows berhasil terhubung dan masuk ke Ubuntu Server melalui SSH.
@@ -236,7 +236,7 @@ ip addr
 Pastikan interface `enp0s3` memiliki IP Address:
 
 ```text
-100.100.4.2/30
+100.100.34.2/30
 ```
 
 ### 3. Memeriksa Status SSH Server
@@ -326,13 +326,13 @@ Apabila muncul informasi yang menunjukkan `LISTEN`, berarti layanan sedang membu
 Apabila koneksi SSH masih gagal, buka CMD Windows dan masukkan:
 
 ```bash
-ping 100.100.4.2
+ping 100.100.34.2
 ```
 
 Selanjutnya, periksa port SSH menggunakan PowerShell:
 
 ```powershell
-Test-NetConnection 100.100.4.2 -Port 22
+Test-NetConnection 100.100.34.2 -Port 22
 ```
 
 Perhatikan hasil:
